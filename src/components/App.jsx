@@ -7,11 +7,10 @@ import AddNote from "./AddNote";
 function App() {
 	const [notes, setNotes] = useState([]);
 
-	function createNote(event, noteTitle, noteContent) {
+	function createNote(note) {
 		setNotes((prevValue) => {
-			return [...prevValue, { title: noteTitle, content: noteContent }];
+			return [...prevValue, note];
 		});
-		event.preventDefault();
 	}
 
 	function deleteNote(id) {

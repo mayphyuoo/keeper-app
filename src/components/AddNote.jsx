@@ -1,39 +1,65 @@
 import React, { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import Zoom from "@mui/material/Zoom";
 
 function AddNote(props) {
-	const [title, setTitle] = useState("");
-	const [note, setNote] = useState("");
+	const [note, setNote] = useState({
+		title: "",
+		content: "",
+	});
+	const [isClicked, setIsClicked] = useState(false);
 
-    function titleChange(event) {
-        const updateTitle = event.target.value;
-        setTitle(updateTitle);
-    }
+	function handleChange(event) {
+		const { name, value } = event.target;
 
-    function noteChange(event) {
-        const updateNote = event.target.value;
-		setNote(updateNote);
-    }
+		setNote((prevValue) => {
+			return {
+				...prevValue,
+				[name]: value,
+			};
+		});
+	}
+
+	function handleClick() {
+		setIsClicked(true);
+	}
 
 	return (
 		<div>
-			<form>
-				<input name="title" placeholder="Title" value={title} onChange={titleChange} />
+			<form className="create-note">
+				{isClicked && (
+					<input
+						name="title"
+						placeholder="Title"
+						value={note.title}
+						onChange={handleChange}
+					/>
+				)}
 				<textarea
 					name="content"
 					placeholder="Take a note..."
-					rows="3"
-					value={note}
-                    onChange={noteChange}
+					rows={isClicked ? 3 : 1}
+					value={note.content}
+					onChange={handleChange}
+					onClick={handleClick}
 				/>
-				<button
-					onClick={(event) => {
-						props.addNote(event, title, note);
-						setTitle("");
-						setNote("");
-					}}
-				>
-					Add
-				</button>
+				{isClicked && (
+					<Zoom in={true}>
+						<Fab
+							onClick={(event) => {
+								props.addNote(note);
+								setNote({
+									title: "",
+									content: "",
+								});
+								event.preventDefault();
+							}}
+						>
+							<AddIcon />
+						</Fab>
+					</Zoom>
+				)}
 			</form>
 		</div>
 	);
