@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About this project
+
+This project is the practice to use React.js. This is inspired from google keep notes.
+
+## This project is live on heroku
+
+https://aqueous-caverns-83603.herokuapp.com/
+
 ## Available Scripts
 
 In the project directory, you can run:
